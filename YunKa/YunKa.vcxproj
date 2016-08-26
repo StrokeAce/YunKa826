@@ -51,7 +51,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>../bin_r</OutDir>
     <IntDir>../Build/Release/</IntDir>
-    <IncludePath>../thirdlib/duilib;../thirdlib/zlib/include;../thirdlib/libcef;../thirdlib/libcurl/include;.\;$(IncludePath)</IncludePath>
+    <IncludePath>../thirdlib/duilib;../thirdlib/zlib/include;../thirdlib/libcef;.\;F:\YunKa822\ChatManager\;$(IncludePath)</IncludePath>
     <LibraryPath>../lib_r;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -84,12 +84,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>./dui_ex;./ui;./ui_common;./auth;./log;./md5;./timer;./chat_manager;./utils;./http_load;./openssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./dui_ex;./ui;./ui_common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeaderOutputFile>../Build/Release/$(TargetName).pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>../Build/Release/</AssemblerListingLocation>
-      <ObjectFileName>../Build/Release/</ObjectFileName>
-      <ProgramDataBaseFileName>../Build/Release/</ProgramDataBaseFileName>
+      <AssemblerListingLocation>Build/Release/</AssemblerListingLocation>
+      <ObjectFileName>Build/Release/</ObjectFileName>
+      <ProgramDataBaseFileName>Build/Release/</ProgramDataBaseFileName>
       <AdditionalOptions>/D "_CRT_SECURE_NO_DEPRECATE" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -97,7 +97,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>libcef_dll_wrapper.lib;cef_sandbox.lib;libcef.lib;opengl32.lib;Riched20.lib;JpegLib.lib;AudioLibrary.lib;libeay32.lib;ssleay32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcef_dll_wrapper.lib;cef_sandbox.lib;libcef.lib;opengl32.lib;Riched20.lib;JpegLib.lib;AudioLibrary.lib;libeay32.lib;ssleay32.lib;Winmm.lib;ChatManager.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
