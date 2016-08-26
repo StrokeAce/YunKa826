@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Window size="0,0">
+
+<Include source="Default.xml" />
+  <HorizontalLayout height="25" bkcolor="#FF60B1FE">
+    <Label name="tips" font="1" padding="5,0,0,0"/>
+    <Control />
+    <Button name="close_button" width="20" height="20" normalimage="file='close_btn.png' mask='#FFFF00FF'" hotimage="file='close_btn.png' mask='#FFFF00FF'" pushedimage="file='close_btn.png' mask='#FFFF00FF'" />
+  </HorizontalLayout>
+</Window>

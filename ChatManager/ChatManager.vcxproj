@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FA6E64B7-6409-4C87-9439-73576F799261}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ChatManager</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>../thirdlib/zlib/include;../thirdlib/libcurl/include;.\;$(IncludePath)</IncludePath>
+    <LibraryPath>../lib;$(LibraryPath)</LibraryPath>
+    <OutDir>..\lib</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;CHATMANAGER_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>AudioLibrary.lib;libeay32.lib;ssleay32.lib;Winmm.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\bin\$(TargetName)$(TargetExt)</OutputFile>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CHATMANAGER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="auth\auth_client.h" />
+    <ClInclude Include="auth\auth_error.h" />
+    <ClInclude Include="auth\http_parse.h" />
+    <ClInclude Include="auth\sockbase.h" />
+    <ClInclude Include="chat_common\comclt.h" />
+    <ClInclude Include="chat_common\comcom.h" />
+    <ClInclude Include="chat_common\comdef.h" />
+    <ClInclude Include="chat_common\comenum.h" />
+    <ClInclude Include="chat_common\comfloat.h" />
+    <ClInclude Include="chat_common\comform.h" />
+    <ClInclude Include="chat_common\comfunc.h" />
+    <ClInclude Include="chat_common\commsg.h" />
+    <ClInclude Include="chat_common\comobject.h" />
+    <ClInclude Include="chat_common\comsrv.h" />
+    <ClInclude Include="chat_common\comstruct.h" />
+    <ClInclude Include="chat_common\comtran.h" />
+    <ClInclude Include="chat_common\wx_obj.h" />
+    <ClInclude Include="chat_manager\chat_history_msg.h" />
+    <ClInclude Include="chat_manager\chat_manager.h" />
+    <ClInclude Include="chat_manager\chat_visitor.h" />
+    <ClInclude Include="chat_manager\login.h" />
+    <ClInclude Include="chat_manager\socket.h" />
+    <ClInclude Include="http_load\http_unit.h" />
+    <ClInclude Include="http_load\sock.h" />
+    <ClInclude Include="http_load\switch_sock.h" />
+    <ClInclude Include="IChatManager.h" />
+    <ClInclude Include="json\autolink.h" />
+    <ClInclude Include="json\cJSON.h" />
+    <ClInclude Include="json\config.h" />
+    <ClInclude Include="json\features.h" />
+    <ClInclude Include="json\forwards.h" />
+    <ClInclude Include="json\json.h" />
+    <ClInclude Include="json\jsonext.h" />
+    <ClInclude Include="json\json_batchallocator.h" />
+    <ClInclude Include="json\reader.h" />
+    <ClInclude Include="json\value.h" />
+    <ClInclude Include="json\writer.h" />
+    <ClInclude Include="log\dirfileop.h" />
+    <ClInclude Include="log\winlog.h" />
+    <ClInclude Include="md5\md5.h" />
+    <ClInclude Include="openssl\aes.h" />
+    <ClInclude Include="openssl\asn1.h" />
+    <ClInclude Include="openssl\asn1t.h" />
+    <ClInclude Include="openssl\asn1_mac.h" />
+    <ClInclude Include="openssl\bio.h" />
+    <ClInclude Include="openssl\blowfish.h" />
+    <ClInclude Include="openssl\bn.h" />
+    <ClInclude Include="openssl\buffer.h" />
+    <ClInclude Include="openssl\camellia.h" />
+    <ClInclude Include="openssl\cast.h" />
+    <ClInclude Include="openssl\cms.h" />
+    <ClInclude Include="openssl\comp.h" />
+    <ClInclude Include="openssl\conf.h" />
+    <ClInclude Include="openssl\conf_api.h" />
+    <ClInclude Include="openssl\crypto.h" />
+    <ClInclude Include="openssl\des.h" />
+    <ClInclude Include="openssl\des_old.h" />
+    <ClInclude Include="openssl\dh.h" />
+    <ClInclude Include="openssl\dsa.h" />
+    <ClInclude Include="openssl\dso.h" />
+    <ClInclude Include="openssl\dtls1.h" />
+    <ClInclude Include="openssl\ebcdic.h" />
+    <ClInclude Include="openssl\ec.h" />
+    <ClInclude Include="openssl\ecdh.h" />
+    <ClInclude Include="openssl\ecdsa.h" />
+    <ClInclude Include="openssl\engine.h" />
+    <ClInclude Include="openssl\err.h" />
+    <ClInclude Include="openssl\evp.h" />
+    <ClInclude Include="openssl\e_os2.h" />
+    <ClInclude Include="openssl\hmac.h" />
+    <ClInclude Include="openssl\idea.h" />
+    <ClInclude Include="openssl\krb5_asn.h" />
+    <ClInclude Include="openssl\kssl.h" />
+    <ClInclude Include="openssl\lhash.h" />
+    <ClInclude Include="openssl\md4.h" />
+    <ClInclude Include="openssl\md5.h" />
+    <ClInclude Include="openssl\mdc2.h" />
+    <ClInclude Include="openssl\modes.h" />
+    <ClInclude Include="openssl\objects.h" />
+    <ClInclude Include="openssl\obj_mac.h" />
+    <ClInclude Include="openssl\ocsp.h" />
+    <ClInclude Include="openssl\opensslconf.h" />
+    <ClInclude Include="openssl\opensslv.h" />
+    <ClInclude Include="openssl\ossl_typ.h" />
+    <ClInclude Include="openssl\pem.h" />
+    <ClInclude Include="openssl\pem2.h" />
+    <ClInclude Include="openssl\pkcs12.h" />
+    <ClInclude Include="openssl\pkcs7.h" />
+    <ClInclude Include="openssl\pqueue.h" />
+    <ClInclude Include="openssl\rand.h" />
+    <ClInclude Include="openssl\rc2.h" />
+    <ClInclude Include="openssl\rc4.h" />
+    <ClInclude Include="openssl\ripemd.h" />
+    <ClInclude Include="openssl\rsa.h" />
+    <ClInclude Include="openssl\safestack.h" />
+    <ClInclude Include="openssl\seed.h" />
+    <ClInclude Include="openssl\sha.h" />
+    <ClInclude Include="openssl\ssl.h" />
+    <ClInclude Include="openssl\ssl2.h" />
+    <ClInclude Include="openssl\ssl23.h" />
+    <ClInclude Include="openssl\ssl3.h" />
+    <ClInclude Include="openssl\stack.h" />
+    <ClInclude Include="openssl\symhacks.h" />
+    <ClInclude Include="openssl\tls1.h" />
+    <ClInclude Include="openssl\ts.h" />
+    <ClInclude Include="openssl\txt_db.h" />
+    <ClInclude Include="openssl\ui.h" />
+    <ClInclude Include="openssl\ui_compat.h" />
+    <ClInclude Include="openssl\whrlpool.h" />
+    <ClInclude Include="openssl\x509.h" />
+    <ClInclude Include="openssl\x509v3.h" />
+    <ClInclude Include="openssl\x509_vfy.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="timer\timer.h" />
+    <ClInclude Include="utils\code_convert.h" />
+    <ClInclude Include="utils\convert.h" />
+    <ClInclude Include="utils\encrypt.h" />
+    <ClInclude Include="utils\error_info.h" />
+    <ClInclude Include="utils\lock.h" />
+    <ClInclude Include="utils\mutex.h" />
+    <ClInclude Include="utils\pack.h" />
+    <ClInclude Include="utils\tstring.h" />
+    <ClInclude Include="utils\zlib_stream.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="auth\auth_client.cpp" />
+    <ClCompile Include="auth\http_parse.cpp" />
+    <ClCompile Include="auth\sockbase.cpp" />
+    <ClCompile Include="chat_common\comclt.cpp" />
+    <ClCompile Include="chat_common\comcom.cpp" />
+    <ClCompile Include="chat_common\comfloat.cpp" />
+    <ClCompile Include="chat_common\comform.cpp" />
+    <ClCompile Include="chat_common\comfunc.cpp" />
+    <ClCompile Include="chat_common\comobject.cpp" />
+    <ClCompile Include="chat_common\comsrv.cpp" />
+    <ClCompile Include="chat_common\wx_obj.cpp" />
+    <ClCompile Include="chat_manager\chat_history_msg.cpp" />
+    <ClCompile Include="chat_manager\chat_manager.cpp" />
+    <ClCompile Include="chat_manager\chat_visitor.cpp" />
+    <ClCompile Include="chat_manager\login.cpp" />
+    <ClCompile Include="chat_manager\socket.cpp" />
+    <ClCompile Include="http_load\http_unit.cpp" />
+    <ClCompile Include="http_load\sock.cpp" />
+    <ClCompile Include="http_load\switch_sock.cpp" />
+    <ClCompile Include="IChatManager.cpp" />
+    <ClCompile Include="json\cJSON.c" />
+    <ClCompile Include="json\jsonext.cpp" />
+    <ClCompile Include="json\json_reader.cpp" />
+    <ClCompile Include="json\json_value.cpp" />
+    <ClCompile Include="json\json_writer.cpp" />
+    <ClCompile Include="log\winlog.cpp" />
+    <ClCompile Include="md5\md5.cpp" />
+    <ClCompile Include="openssl\applink.c" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="timer\timer.cpp" />
+    <ClCompile Include="utils\code_convert.cpp" />
+    <ClCompile Include="utils\convert.cpp" />
+    <ClCompile Include="utils\encrypt.cpp" />
+    <ClCompile Include="utils\error_info.cpp" />
+    <ClCompile Include="utils\pack.cpp" />
+    <ClCompile Include="utils\tstring.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="json\json_internalarray.inl" />
+    <None Include="json\json_internalmap.inl" />
+    <None Include="json\json_valueiterator.inl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
