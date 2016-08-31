@@ -2431,7 +2431,7 @@ int CChatManager::RecvFloatCloseChat(PACK_HEADER packhead, char *pRecvBuff, int 
 			// 访客如果在线，退回到访问中节点
 			pWebUser->m_nWaitTimer = -20;
 			pWebUser->onlineinfo.talkstatus = TALK_STATUS_NO;
-			pWebUser->info.userstatus = USER_STATUS_OFFLINE;
+			pWebUser->info.userstatus = USER_STATUS_ONLINE;
 			m_handlerMsgs->RecvCloseChat(pWebUser);
 			g_WriteLog.WriteLog(C_LOG_TRACE, "RecvFloatCloseChat 坐席离线(%u)访客访问中", packhead.uin);
 		}
@@ -4528,7 +4528,7 @@ void CChatManager::AfterUpload(unsigned long userId, MSG_RECV_TYPE userType, str
 		}
 		else if (msgDataType == MSG_DATA_TYPE_FILE)
 		{
-			sprintf(contentMsg, "<img id = \"%s_image\" onclick=ReSendFile(\"%s\",\"%d\",\"%s\",\"%d\",\"%lu\",\"%s\") class=\"wait_image\" src=\"%smsg_fail.png\"><span class=\"file_text\">文件发送失败</span>",
+			sprintf(contentMsg, "<img id = \"%s_image\" onclick=ReSendFile(\"%s\",\"%d\",\"%s\",\"%d\",\"%lu\",\"%s\") class=\"wait_image\" src=\"%smsg_fail.png\"><span class=\"msg_text_background\">文件发送失败</span>",
 				msgId.c_str(), filePath.c_str(), userType, msgId.c_str(), MSG_DATA_TYPE_FILE, userId, imagePath.c_str(), imagePath.c_str());
 			filePath = contentMsg;
 		}
@@ -4687,7 +4687,7 @@ void CChatManager::AfterUpload(unsigned long userId, MSG_RECV_TYPE userType, str
 				if (SendMsg(pWebUser, sSendTo, 0) == SYS_SUCCESS)
 				{
 					m_handlerMsgs->ResultSendMsg(msgId.c_str(), true, pWebUser->webuserid, userType, msgDataType, mediaID.c_str());
-					sprintf(sSendTo, "<span class=\"file_text\">发送文件 </span><a class=\"file_link\" href=\"%s\" target=\"_blank\">%s</a>",
+					sprintf(sSendTo, "<span style=\"color:red\" class=\"msg_text_background\">发送文件 <a class=\"file_link\" href=\"%s\" target=\"_blank\">%s</a></span>",
 						mediaID.c_str(), fileName.c_str());
 					AddMsgToList((IBaseObject*)pWebUser, MSG_FROM_SELF, MSG_RECV_ERROR, msgId, MSG_TYPE_NORMAL,
 						msgDataType, sSendTo, 0, NULL, NULL);
@@ -4699,7 +4699,7 @@ void CChatManager::AfterUpload(unsigned long userId, MSG_RECV_TYPE userType, str
 				{
 					char sSendTo[MAX_1024_LEN];
 					m_handlerMsgs->ResultSendMsg(msgId.c_str(), true, pWebUser->webuserid, userType, msgDataType, mediaID.c_str());
-					sprintf(sSendTo, "<span class=\"file_text\">发送文件 </span><a class=\"file_link\" href=\"%s\" target=\"_blank\">%s</a>",
+					sprintf(sSendTo, "<span style=\"color:red\" class=\"msg_text_background\">发送文件 <a class=\"file_link\" href=\"%s\" target=\"_blank\">%s</a></span>",
 						mediaID.c_str(), fileName.c_str());
 					AddMsgToList((IBaseObject*)pWebUser, MSG_FROM_SELF, MSG_RECV_ERROR, msgId, MSG_TYPE_NORMAL,
 						msgDataType, sSendTo, 0, NULL, NULL);
@@ -4708,12 +4708,12 @@ void CChatManager::AfterUpload(unsigned long userId, MSG_RECV_TYPE userType, str
 			else if (userType == MSG_RECV_CLIENT)
 			{
 				char sSendTo[MAX_1024_LEN];
-				sprintf(sSendTo, "<span class=\"file_text\">收到文件 </span><a href=\"%s\" target=\"_blank\">%s</a>", mediaID.c_str(), fileName.c_str());
+				sprintf(sSendTo, "<span style=\"color:red\" class=\"msg_text_background\">收到文件 <a href=\"%s\" target=\"_blank\">%s</a></span>", mediaID.c_str(), fileName.c_str());
 				if (SendMsg(pUser, sSendTo, 0) == SYS_SUCCESS)
 				{
 					char sSendTo[MAX_1024_LEN];
 					m_handlerMsgs->ResultSendMsg(msgId.c_str(), true, pUser->UserInfo.uid, userType, msgDataType, mediaID.c_str());
-					sprintf(sSendTo, "<span class=\"file_text\">发送文件 </span><a  class=\"file_link\" href=\"%s\" target=\"_blank\">%s</a>",	mediaID.c_str(), fileName.c_str());
+					sprintf(sSendTo, "<span style=\"color:red\" class=\"msg_text_background\">发送文件 <a  class=\"file_link\" href=\"%s\" target=\"_blank\">%s</a></span>",	mediaID.c_str(), fileName.c_str());
 					AddMsgToList((IBaseObject*)pUser, MSG_FROM_SELF, MSG_RECV_ERROR, msgId, MSG_TYPE_NORMAL,
 						msgDataType, sSendTo, 0, NULL, NULL);
 				}
@@ -5193,7 +5193,7 @@ void CChatManager::AddMsgToList(IBaseObject* pObj, MSG_FROM_TYPE msgFrom, MSG_RE
 									int pos2 = fileUrl.find_last_of("/");
 									string fileName = fileUrl.substr(pos2 + 1, fileUrl.length() - pos2 - 1);
 
-									sprintf(sMsg, "<span class=\"file_text\">收到文件 </span><a class=\"file_link\" href=\"%s\" target=\"_blank\">%s</a>",
+									sprintf(sMsg, "<span style=\"color:red\" class=\"msg_text_background\">收到文件 <a class=\"file_link\" href=\"%s\" target=\"_blank\">%s</a></span>",
 										fileUrl.c_str(), fileName.c_str());
 									msgContent = sMsg;
 								}
@@ -5207,7 +5207,7 @@ void CChatManager::AddMsgToList(IBaseObject* pObj, MSG_FROM_TYPE msgFrom, MSG_RE
 							int pos1 = strMsg.find("userfile/");
 							vFileName = strMsg.substr(pos1 + 9, strMsg.length() - pos1 - 9);
 
-							sprintf(sMsg, "<span class=\"file_text\">收到文件 </span><a class=\"file_link\" href=\"%s\" target=\"_blank\">%s</a>",
+							sprintf(sMsg, "<span style=\"color:red\" class=\"msg_text_background\">收到文件 <a class=\"file_link\" href=\"%s\" target=\"_blank\">%s</a></span>",
 								strMsg.c_str(), vFileName.c_str());
 							msgContent = sMsg;
 						}

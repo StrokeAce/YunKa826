@@ -797,7 +797,7 @@ void CUserObject::DownLoadFace(char* loadUrl)
 {
 	m_loadHeadUrl = loadUrl;
 	char filePath[MAX_PATH];
-	sprintf(filePath, "%s\\%lu.png", FullPath("res\\headimage"), UserInfo.uid);
+	sprintf(filePath, "%s\\%lu.png", FullPath("res\\headimage").c_str(), UserInfo.uid);
 	if (_access(filePath, 0) == 0)
 	{
 		m_headPath = filePath;

@@ -1528,7 +1528,10 @@ void CMainFrame::OnBtnSendMessage(TNotifyUI& msg)
 	//如果当前选择的用户为 空 则不需要发送  测试时暂时屏蔽掉
 	sendUserType = GetSendUserType(m_curSelectId);
 	if (sendUserType == MSG_RECV_ERROR || m_curSelectId <= 0)
+	{
+		ShowOperationTips(_T("只能对会话中的访客发送消息"));
 		return;
+	}
 
 	if (sendUserType == MSG_RECV_CLIENT)
 	{
@@ -3165,7 +3168,7 @@ string CMainFrame::CreateClientInfoHtml(WxUserInfo* pWxUser)
 			htmlContent += htmlitem;
 		}
 
-		if (!pWxUser->language.empty())
+		/*if (!pWxUser->language.empty())
 		{
 			sprintf(htmlitem, itemFormat, "语言", pWxUser->language.c_str());
 			htmlContent += htmlitem;
@@ -3185,7 +3188,7 @@ string CMainFrame::CreateClientInfoHtml(WxUserInfo* pWxUser)
 		{
 			sprintf(htmlitem, itemFormat, "标识", "未知");
 			htmlContent += htmlitem;
-		}
+		}*/
 
 		if (!pWxUser->fromwxname.empty())
 		{

@@ -313,7 +313,7 @@ function ResultSendMsg(msgId, bSuccess, imagePath, filePath, recvUserType, msgDa
         {
             var spanId = msgId + "_span";
             var oSpan = document.getElementById(spanId);
-            oSpan.innerHTML = "<span class='file_text'>发送文件 </span><a href='" + filePath + "' target='_blank'>" + imagePath + "</a>";
+            oSpan.innerHTML = "发送文件 <a href='" + filePath + "' target='_blank'>" + imagePath + "</a>";
         }        
     }
 }

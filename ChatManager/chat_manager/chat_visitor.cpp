@@ -362,7 +362,7 @@ void CChatVisitor::SolveVisitorSCRIPTMSGTalkEnd(char *pInitBuff)
 	sprintf(msg, "%s 客服 %s(%u) 与访客的通话已结束", GetTimeByMDAndHMS(0).c_str(), szKefuNmae, uKefu);
 
 	pWebUser->cTalkedSatus = HASTALKED;
-	pWebUser->info.userstatus = USER_STATUS_OFFLINE;
+	pWebUser->info.userstatus = USER_STATUS_ONLINE;
 	pWebUser->onlineinfo.talkstatus = TALK_STATUS_NO;
 	pWebUser->talkuid = 0;
 
