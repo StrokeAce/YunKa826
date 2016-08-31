@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>../thirdlib/duilib;../thirdlib/zlib/include;../thirdlib/libcef;.\;F:\YunKa822\ChatManager\;$(IncludePath)</IncludePath>
+    <IncludePath>../thirdlib/duilib;../thirdlib/zlib/include;../thirdlib/libcef;.\;../ChatManager/;$(IncludePath)</IncludePath>
     <LibraryPath>../lib;$(LibraryPath)</LibraryPath>
     <OutDir>../bin</OutDir>
     <IntDir>Build/Debug/</IntDir>
