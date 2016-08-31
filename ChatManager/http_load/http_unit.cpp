@@ -680,8 +680,8 @@ bool CHttpLoad::HttpLoad(const string& szUrl, const string& szReffer, int reques
 		else
 		{
 			FILE* pFile = NULL;
-			fopen_s(&pFile, szFilePath.c_str(), "wb");
-			if (pFile != NULL)
+			errno_t err = fopen_s(&pFile, szFilePath.c_str(), "wb");
+			if (pFile != NULL && err == 0)
 			{
 				SetHeadOptLoad(szUrl, szReffer, requestType, (void*)pFile, resultCode);
 				cret = curl_easy_perform(m_curl);

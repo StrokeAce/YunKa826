@@ -398,7 +398,7 @@ int CCodeConvert::Ucs2Toutf8(const  WCHAR *wpin, int inlen, char *pout, int outl
 	return j;
 }
 
-const char* CCodeConvert::URLEncode(const char *code)
+string CCodeConvert::URLEncode(const char *code)
 {
 	
 	std::string strRet;// phl 09-02-06
@@ -421,7 +421,7 @@ const char* CCodeConvert::URLEncode(const char *code)
 		code++;
 	}
 	strRet += "";
-	return strRet.c_str();
+	return strRet;
 }
 
 std::string CCodeConvert::URLDecode(const std::string szToDecode)

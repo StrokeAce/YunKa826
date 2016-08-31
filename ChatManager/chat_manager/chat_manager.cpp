@@ -4079,16 +4079,15 @@ int CChatManager::SendTo_Msg(unsigned long userId, MSG_RECV_TYPE userType, const
 			if (SendMsg(pUser, sMsg.c_str()) == SYS_SUCCESS)
 			{
 				sMsg = msg;
-				StringReplace(sMsg, "\\", "/");
 				ReplaceFaceId(sMsg);
 				AddMsgToList((IBaseObject*)pUser, MSG_FROM_SELF, MSG_RECV_ERROR, msgId, MSG_TYPE_NORMAL, 
-					MSG_DATA_TYPE_TEXT,	msg, 0, NULL, NULL);
+					MSG_DATA_TYPE_TEXT, sMsg, 0, NULL, NULL);
 			}			
 			break;
 		case MSG_DATA_TYPE_IMAGE:
 			sMsg = msg;
 			StringReplace(sMsg, "\\", "/");
-			UpLoadFile(userId, userType, msgId, msg, msgDataType);
+			UpLoadFile(userId, userType, msgId, sMsg, msgDataType);
 			break;
 		case MSG_DATA_TYPE_FILE:
 			SendFileToUser(pUser, msg, msgId, userType);
@@ -4112,17 +4111,16 @@ int CChatManager::SendTo_Msg(unsigned long userId, MSG_RECV_TYPE userType, const
 			if (SendMsg(pWebUser, sMsg.c_str()) == SYS_SUCCESS)
 			{
 				sMsg = msg;
-				StringReplace(sMsg, "\\", "/");
 				ReplaceFaceId(sMsg);
 				AddMsgToList((IBaseObject*)pWebUser, MSG_FROM_SELF, MSG_RECV_ERROR, GetMsgId(), 
-					MSG_TYPE_NORMAL, MSG_DATA_TYPE_TEXT,msg, 0, NULL, NULL);
+					MSG_TYPE_NORMAL, MSG_DATA_TYPE_TEXT, sMsg, 0, NULL, NULL);
 			}
 			break;
 		case MSG_DATA_TYPE_IMAGE:
 		case MSG_DATA_TYPE_VOICE:
 			sMsg = msg;
 			StringReplace(sMsg, "\\", "/");
-			UpLoadFile(userId, userType, msgId, msg, msgDataType);
+			UpLoadFile(userId, userType, msgId, sMsg, msgDataType);
 			break;
 		case MSG_DATA_TYPE_FILE:
 			SendFileToUser(pWebUser, msg, msgId, userType);

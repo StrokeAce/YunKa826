@@ -51,7 +51,7 @@ public:
 	//
 	int utf8ToUcs2(const  char *s, int len, WCHAR *wbuf, int wbuf_len);
 	int Ucs2Toutf8(const WCHAR *wpin, int inlen, char *pout, int outlen);
-	const char* URLEncode(const char *code);
+	std::string URLEncode(const char *code);
 	std::string URLDecode(const std::string code);
 	// 解码时不做数字字母的保留，全部解码
 	std::string URLDecodeALL(const std::string code);

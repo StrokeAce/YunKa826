@@ -2264,6 +2264,7 @@ void CMainFrame::ShowMySelfSendMsg(string strMsg, MSG_DATA_TYPE msgType, string 
 	StringReplace(strMsg, "\r\n", "<br>");
 	StringReplace(strMsg, "\\", "/");
 	convert.Gb2312ToUTF_8(msg, strMsg.c_str(), strMsg.length());
+	strMsg = msg;
 
 	imagePath = FullPath("SkinRes\\mainframe\\msg_wait.gif");
 	StringReplace(imagePath, "\\", "/");	
@@ -2271,7 +2272,7 @@ void CMainFrame::ShowMySelfSendMsg(string strMsg, MSG_DATA_TYPE msgType, string 
 	if (msgType == MSG_DATA_TYPE_IMAGE)
 	{
 		sprintf(msg, "<img id=\"%s_image\" class=\"wait_image\" src=\"%s\"><img class=\"msg_image\" src=\"%s\" onclick=window.RunMsgList(\"ViewDetails\",\"%s\",\"2\")>",
-			msgId.c_str(), imagePath.c_str(), msg, msg);
+			msgId.c_str(), imagePath.c_str(), strMsg.c_str(), strMsg.c_str());
 	}
 	else if (msgType == MSG_DATA_TYPE_VOICE)
 	{
@@ -2281,7 +2282,7 @@ void CMainFrame::ShowMySelfSendMsg(string strMsg, MSG_DATA_TYPE msgType, string 
 	else if (msgType == MSG_DATA_TYPE_FILE)
 	{
 		sprintf(msg, "<img id=\"%s_image\" class=\"wait_image\" src=\"%s\"><span id=\"%s_span\" style=\"color:red\" class=\"msg_text_background\">%s</span>",
-			msgId.c_str(), imagePath.c_str(), msgId.c_str(), msg);
+			msgId.c_str(), imagePath.c_str(), msgId.c_str(), strMsg.c_str());
 	}
 
 	//组合消息
@@ -3509,44 +3510,81 @@ void CMainFrame::OnBtnSendFile(TNotifyUI& msg)
 {
 	MSG_RECV_TYPE sendUserType = GetSendUserType(m_curSelectId);
 	if (sendUserType == MSG_RECV_ERROR || m_curSelectId <= 0)
-		ShowOperationTips(_T("不能发送文件"));
-	CWebUserObject* webUser = m_manager->GetWebUserObjectByUid(m_curSelectId);
-	if (webUser && webUser->info.userstatus != USER_STATUS_OFFLINE)
 	{
-		TCHAR pszPath[1024];
-		BROWSEINFO bi;
-		bi.hwndOwner = this->GetHWND();
-		bi.pidlRoot = NULL;
-		bi.pszDisplayName = NULL;
-		bi.lpszTitle = TEXT("请选择需要发送的文件");
-		bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_STATUSTEXT | BIF_BROWSEINCLUDEFILES;;
-		bi.lpfn = NULL;
-		bi.lParam = 0;
-		bi.iImage = 0;
-
-		LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
-		if (pidl == NULL)
+		ShowOperationTips(_T("异常原因,不能发送文件!"));
+	}
+	else if (sendUserType == MSG_RECV_CLIENT)
+	{
+		CUserObject* pUser = m_manager->GetUserObjectByUid(m_curSelectId);
+		if (pUser && pUser->status != USER_STATUS_OFFLINE)
 		{
-			return;
+			TCHAR pszPath[1024];
+			BROWSEINFO bi;
+			bi.hwndOwner = this->GetHWND();
+			bi.pidlRoot = NULL;
+			bi.pszDisplayName = NULL;
+			bi.lpszTitle = TEXT("请选择需要发送的文件");
+			bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_STATUSTEXT | BIF_BROWSEINCLUDEFILES;;
+			bi.lpfn = NULL;
+			bi.lParam = 0;
+			bi.iImage = 0;
+
+			LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+			if (pidl == NULL)
+			{
+				return;
+			}
+
+			if (SHGetPathFromIDList(pidl, pszPath))
+			{
+				char getInput[MAX_1024_LEN];
+				UnicodeToANSI(pszPath, getInput);
+				string msgId = m_manager->GetMsgId();
+				ShowMySelfSendMsg("发送文件.....", MSG_DATA_TYPE_FILE, msgId);
+				m_manager->SendTo_Msg(m_curSelectId, sendUserType, msgId.c_str(), MSG_DATA_TYPE_FILE,getInput);
+			}
 		}
-
-		if (SHGetPathFromIDList(pidl, pszPath))
+		else
 		{
-			char getInput[MAX_1024_LEN];
-			UnicodeToANSI(pszPath, getInput);
-
-			string msgId = m_manager->GetMsgId();
-
-			ShowMySelfSendMsg("发送文件.....", MSG_DATA_TYPE_FILE, msgId);
-
-			m_manager->SendTo_Msg(m_curSelectId, sendUserType, msgId.c_str(), MSG_DATA_TYPE_FILE,
-				getInput);
+			ShowOperationTips(_T("对方不在线，不能发送文件消息"));
 		}
 	}
 	else
 	{
-		ShowOperationTips(_T("对方不在线或会话已关闭，不能发送消息"));
-	}
+		CWebUserObject* webUser = m_manager->GetWebUserObjectByUid(m_curSelectId);
+		if (webUser && webUser->info.userstatus != USER_STATUS_OFFLINE)
+		{
+			TCHAR pszPath[1024];
+			BROWSEINFO bi;
+			bi.hwndOwner = this->GetHWND();
+			bi.pidlRoot = NULL;
+			bi.pszDisplayName = NULL;
+			bi.lpszTitle = TEXT("请选择需要发送的文件");
+			bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_STATUSTEXT | BIF_BROWSEINCLUDEFILES;;
+			bi.lpfn = NULL;
+			bi.lParam = 0;
+			bi.iImage = 0;
+
+			LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+			if (pidl == NULL)
+			{
+				return;
+			}
+
+			if (SHGetPathFromIDList(pidl, pszPath))
+			{
+				char getInput[MAX_1024_LEN];
+				UnicodeToANSI(pszPath, getInput);
+				string msgId = m_manager->GetMsgId();
+				ShowMySelfSendMsg("发送文件.....", MSG_DATA_TYPE_FILE, msgId);
+				m_manager->SendTo_Msg(m_curSelectId, sendUserType, msgId.c_str(), MSG_DATA_TYPE_FILE,getInput);
+			}
+		}
+		else
+		{
+			ShowOperationTips(_T("与访客会话已关闭，不能发送文件消息"));
+		}
+	}	
 }
 
 
