@@ -149,6 +149,8 @@ public:
 	virtual void RecvQuickReply(const char* quickReply) = 0;
 
 	virtual void PopTrayTips(const char* strPopTips, const char* strTitle = "") = 0;
+
+	virtual void ShowMainWnd() = 0;
 };
 
 class IChatManager

@@ -16,8 +16,9 @@
 #include "system_settings.h"
 #include "operation_tips.h"
 #include "ui_common/markup.h"
+#include "commctrl.h"
 
-
+#pragma comment(lib,"comctl32.lib")
 
 #define MID_MANAGER_BUTTON_NUM    8
 #define MAX_PATH_LENGTH           512
@@ -216,6 +217,8 @@ public:    //主界面消息回调
 	virtual void RecvQuickReply(const char* quickReply);
 	
 	virtual void PopTrayTips(const char* strPopTips, const char* strTitle = "");
+
+	virtual void ShowMainWnd();
 
 public:
 	//自己定义的操作函数
@@ -422,15 +425,6 @@ private:
 	bool   m_wndShow;
 
 };
-
-
-
-__declspec(dllimport) CLog g_WriteLog;
-
-
-
-
-
 
 
 #endif

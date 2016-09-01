@@ -1,5 +1,6 @@
 #include "../stdafx.h"
 #include "system_settings.h"
+#include "ui_common/common_utility.h"
 #include <ShlObj.h>
 
 CSystemSettings::CSystemSettings()
@@ -8,6 +9,18 @@ CSystemSettings::CSystemSettings()
 
 CSystemSettings::~CSystemSettings()
 {
+}
+
+int CALLBACK CSystemSettings::BrowseCallbackProc(HWND hwnd, UINT msg, LPARAM lp, LPARAM pData)
+{
+	switch (msg)
+	{
+		case BFFM_INITIALIZED:
+			::SendMessage(hwnd, BFFM_SETSELECTION, TRUE, pData);
+			break;
+	}
+
+	return 0;
 }
 
 void CSystemSettings::Notify(TNotifyUI& msg)
@@ -28,31 +41,25 @@ void CSystemSettings::Notify(TNotifyUI& msg)
 		{
 			ResetAlertSettings();
 		}
-		else if (msg.pSender->GetName().Find(L"find_file") >= 0)
+		else if (msg.pSender->GetName().Find(L"find_file_1") >= 0)
 		{
-			//string buttonName = 
-
-			/*TCHAR pszPath[MAX_1024_LEN];
-			BROWSEINFO bi;
-			bi.hwndOwner = GetHWND();
-			bi.pidlRoot = NULL;
-			bi.pszDisplayName = NULL;
-			bi.lpszTitle = TEXT("请选择声音文件");
-			bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_STATUSTEXT | BIF_BROWSEINCLUDEFILES;;
-			bi.lpfn = NULL;
-			bi.lParam = 0;
-			bi.iImage = 0;
-
-			LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
-			if (pidl == NULL)
-			{
-			return;
-			}
-
-			if (SHGetPathFromIDList(pidl, pszPath))
-			{
-				
-			}*/
+			SelectSoundFile(1);
+		}
+		else if (msg.pSender->GetName().Find(L"find_file_2") >= 0)
+		{
+			SelectSoundFile(2);
+		}
+		else if (msg.pSender->GetName().Find(L"find_file_3") >= 0)
+		{
+			SelectSoundFile(3);
+		}
+		else if (msg.pSender->GetName().Find(L"find_file_4") >= 0)
+		{
+			SelectSoundFile(4);
+		}
+		else if (msg.pSender->GetName().Find(L"find_file_5") >= 0)
+		{
+			SelectSoundFile(5);
 		}
 	}
 	else if (msg.sType == DUI_MSGTYPE_ITEMSELECT)
@@ -205,13 +212,28 @@ LRESULT CSystemSettings::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lP
 void CSystemSettings::OnPrepare(TNotifyUI& msg)
 {
 	COptionUI * pCheck;
+	CEditUI* pEdit;
+	TCHAR fileName[MAX_1024_LEN];
+	string filePath;
 
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_visit_1")));
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[0]->bTray);
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_visit_2")));
 	if (pCheck)  pCheck->Selected(m_sysConfig->m_cAlertInfoList[0]->bShowwnd);
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_visit_3")));
-	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[0]->bSound);
+	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[0]->bSound); 
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("sound_file_1")));
+	if (pEdit)
+	{
+		filePath = m_sysConfig->m_cAlertInfoList[0]->soundfilename;
+		int pos = filePath.find_last_of("\\");
+		if (pos > 0)
+		{
+			filePath = filePath.substr(pos + 1, filePath.length() - pos - 1);
+		}
+		ANSIToUnicode(filePath.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
 
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_chat_1")));
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[1]->bTray);
@@ -219,6 +241,18 @@ void CSystemSettings::OnPrepare(TNotifyUI& msg)
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[1]->bShowwnd);
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_chat_3")));
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[1]->bSound);
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("sound_file_2")));
+	if (pEdit)
+	{
+		filePath = m_sysConfig->m_cAlertInfoList[1]->soundfilename;
+		int pos = filePath.find_last_of("\\");
+		if (pos > 0)
+		{
+			filePath = filePath.substr(pos + 1, filePath.length() - pos - 1);
+		}
+		ANSIToUnicode(filePath.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
 
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_msg_1")));
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[2]->bTray);
@@ -226,6 +260,18 @@ void CSystemSettings::OnPrepare(TNotifyUI& msg)
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[2]->bShowwnd);
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_msg_3")));
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[2]->bSound);
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("sound_file_3")));
+	if (pEdit)
+	{
+		filePath = m_sysConfig->m_cAlertInfoList[2]->soundfilename;
+		int pos = filePath.find_last_of("\\");
+		if (pos > 0)
+		{
+			filePath = filePath.substr(pos + 1, filePath.length() - pos - 1);
+		}
+		ANSIToUnicode(filePath.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
 
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_transfer_1")));
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[3]->bTray);
@@ -233,6 +279,18 @@ void CSystemSettings::OnPrepare(TNotifyUI& msg)
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[3]->bShowwnd);
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_transfer_3")));
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[3]->bSound);
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("sound_file_4")));
+	if (pEdit)
+	{
+		filePath = m_sysConfig->m_cAlertInfoList[3]->soundfilename;
+		int pos = filePath.find_last_of("\\");
+		if (pos > 0)
+		{
+			filePath = filePath.substr(pos + 1, filePath.length() - pos - 1);
+		}
+		ANSIToUnicode(filePath.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
 
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_other_1")));
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[4]->bTray);
@@ -240,6 +298,18 @@ void CSystemSettings::OnPrepare(TNotifyUI& msg)
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[4]->bShowwnd);
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_other_3")));
 	if (pCheck) pCheck->Selected(m_sysConfig->m_cAlertInfoList[4]->bSound);
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("sound_file_5")));
+	if (pEdit)
+	{
+		filePath = m_sysConfig->m_cAlertInfoList[4]->soundfilename;
+		int pos = filePath.find_last_of("\\");
+		if (pos > 0)
+		{
+			filePath = filePath.substr(pos + 1, filePath.length() - pos - 1);
+		}
+		ANSIToUnicode(filePath.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
 }
 
 LPCTSTR CSystemSettings::GetWindowClassName() const
@@ -389,5 +459,60 @@ void CSystemSettings::ResetAlertSettings()
 	if (pCheck) pCheck->Selected(false);
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_other_3")));
 	if (pCheck) pCheck->Selected(false);
+}
+
+void CSystemSettings::SelectSoundFile(int index)
+{
+	TCHAR pszPath[MAX_1024_LEN];
+	string filePath = "C:\\";
+	if (m_sysConfig && m_sysConfig->m_cAlertInfoList[0])
+	{
+		filePath = m_sysConfig->m_cAlertInfoList[0]->soundfilename;
+		int pos = filePath.find_last_of("\\");
+		filePath = filePath.substr(0, pos);
+	}
+
+	ANSIToUnicode(filePath.c_str(), pszPath);
+
+	BROWSEINFO bi;
+	bi.hwndOwner = m_PaintManager.GetPaintWindow();
+	bi.pidlRoot = NULL;
+	bi.pszDisplayName = NULL;
+	bi.lpszTitle = TEXT("请选择声音文件");
+	bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_STATUSTEXT | BIF_BROWSEINCLUDEFILES;
+	bi.lpfn = BrowseCallbackProc;
+	bi.lParam = (LPARAM)pszPath;
+	bi.iImage = 0;
+
+	LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+	if (pidl == NULL) return;
+
+	if (SHGetPathFromIDList(pidl, pszPath))
+	{
+		wstring wfilePath = pszPath;
+
+		if ((int)wfilePath.find(_T(".wav")) > 0 || (int)wfilePath.find(_T(".mp3")) > 0)
+		{
+			CEditUI* pEdit;
+			TCHAR controlName[MAX_64_LEN];
+			wsprintf(controlName, _T("sound_file_%d"), index);
+			pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(controlName));
+			if (pEdit)
+			{
+				int pos = wfilePath.find_last_of(_T("\\"));
+				if (pos > 0)
+				{
+					wfilePath = wfilePath.substr(pos + 1, wfilePath.length() - pos - 1);
+				}
+				pEdit->SetText(wfilePath.c_str());
+				if (m_sysConfig && m_sysConfig->m_cAlertInfoList[index - 1])
+				{
+					char cfileName[MAX_1024_LEN];
+					UnicodeToANSI(pszPath, cfileName);
+					strcpy(m_sysConfig->m_cAlertInfoList[index - 1]->soundfilename, cfileName);
+				}
+			}
+		}		
+	}
 }
 

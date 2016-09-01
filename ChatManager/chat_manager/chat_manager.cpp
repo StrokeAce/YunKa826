@@ -6413,6 +6413,11 @@ void CChatManager::SolveAlertInfo(ALERT_TYPE type, string strPopTips)
 	{
 		sndPlaySoundA(pAlert->soundfilename, SND_ASYNC);
 	}
+
+	if (pAlert->bShowwnd)
+	{
+		m_handlerMsgs->ShowMainWnd();
+	}
 }
 
 void CChatManager::ReplaceHeadImage(CWebUserObject* pWebUser)

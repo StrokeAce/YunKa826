@@ -5954,11 +5954,9 @@ void CMainFrame::PopTrayTips(const char* strPopTips, const char* strTitle)
 	NOTIFYICONDATAA icondata;
 	memset(&icondata, '\0', sizeof(NOTIFYICONDATAA));
 	icondata.cbSize = sizeof(NOTIFYICONDATAA);
-	icondata.hWnd = m_hMainWnd;
-	icondata.uID = IDI_YUNKA;  //identifier
-	icondata.uCallbackMessage = WM_MSG_NOTIFYICON; //notification handler
+	icondata.hWnd = m_hMainWnd;	
 	icondata.uFlags = NIF_INFO;
-	icondata.uTimeout = 4000;
+	icondata.uTimeout = 3000;
 	icondata.dwInfoFlags = NIIF_INFO;
 	strcpy(icondata.szInfo, strPopTips);
 	if ((int)strlen(strTitle) <= 0)
@@ -5971,8 +5969,6 @@ void CMainFrame::PopTrayTips(const char* strPopTips, const char* strTitle)
 	}
 
 	Shell_NotifyIconA(NIM_MODIFY, &icondata);
-
-
 }
 
 void CMainFrame::InsertInviteUserid(unsigned long webUserid, unsigned long id)
@@ -6109,4 +6105,9 @@ bool CMainFrame::ParseGroupUser(CMarkupXml &xml, CGroupObject *pGroupOb, char *s
 	}
 
 	return nPersonNum > 0;
+}
+
+void CMainFrame::ShowMainWnd()
+{
+	::PostMessage(m_hMainWnd, WM_DOUBLE_CLICK_SHOW_WND_MSG, 0, 0);
 }

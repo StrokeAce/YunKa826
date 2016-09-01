@@ -34,6 +34,8 @@ private:
 	void OnPrepare(TNotifyUI& msg);
 	void SaveSystemSettings();
 	void ResetAlertSettings();
+	static int CALLBACK BrowseCallbackProc(HWND hwnd, UINT msg, LPARAM lp, LPARAM pData);
+	void SelectSoundFile(int index);
 
 	LRESULT OnMouseMove(UINT uMsg, WPARAM wParam, LPARAM lParam);
 

@@ -117,7 +117,7 @@ struct ALERT_INFO
 	int bTray;			// 是否托盘冒泡提示
 	int bShowwnd;		// 受否弹出窗口提示
 	int bSound;			// 是否声音提示
-	char soundfilename[MAX_FILENAME_LEN];
+	char soundfilename[MAX_1024_LEN];
 };
 
 //用户字典组的结构

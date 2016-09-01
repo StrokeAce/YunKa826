@@ -395,7 +395,7 @@ ALERT_INFO *CSysConfigFile::SetAllDefaultAlertInfo()
 	DeleteAllAlertInfo();
 
 	string strPath = GetCurrentPath(); // 调用有问题，调用的原来是界面那边的函数
-	strPath += "\\res\\sound";
+	strPath += "res\\sound";
 
 	ALERT_INFO *pInfo, *pRtn;
 	pRtn = NULL;
