@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7FF54136-337D-4745-804F-B1D5AB465995}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>YunKa</RootNamespace>
+    <ProjectName>YunKeFu</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>../thirdlib/duilib;../thirdlib/zlib/include;../thirdlib/libcef;../ChatManager/;.\;$(IncludePath)</IncludePath>
+    <LibraryPath>../lib;$(LibraryPath)</LibraryPath>
+    <OutDir>../bin_yunkefu</OutDir>
+    <IntDir>Build/Debug/</IntDir>
+    <EmbedManifest>true</EmbedManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>../bin_yunkefu_r</OutDir>
+    <IntDir>Build/Release/</IntDir>
+    <IncludePath>../thirdlib/duilib;../thirdlib/zlib/include;../thirdlib/libcef;../thirdlib/libcurl/include;.\;$(IncludePath)</IncludePath>
+    <LibraryPath>../lib_r;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>./dui_ex;./ui;./ui_common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>Build/Debug/$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>Build/Debug/</AssemblerListingLocation>
+      <ObjectFileName>Build/Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>Build/Debug/</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libcef_dll_wrapper.lib;cef_sandbox.lib;libcef.lib;opengl32.lib;Riched20.lib;JpegLib.lib;AudioLibrary.lib;libeay32.lib;ssleay32.lib;Winmm.lib;ChatManager.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>./dui_ex;./ui;./ui_common;./auth;./log;./md5;./timer;./chat_manager;./utils;./http_load;./openssl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>Build/Release/$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>Build/Release/</AssemblerListingLocation>
+      <ObjectFileName>Build/Release/</ObjectFileName>
+      <ProgramDataBaseFileName>Build/Release/</ProgramDataBaseFileName>
+      <AdditionalOptions>/D "_CRT_SECURE_NO_DEPRECATE" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libcef_dll_wrapper.lib;cef_sandbox.lib;libcef.lib;opengl32.lib;Riched20.lib;JpegLib.lib;AudioLibrary.lib;libeay32.lib;ssleay32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cef_browser\binding_test.h" />
+    <ClInclude Include="cef_browser\bytes_write_handler.h" />
+    <ClInclude Include="cef_browser\cefclient.h" />
+    <ClInclude Include="cef_browser\cefclient_osr_dragdrop_win.h" />
+    <ClInclude Include="cef_browser\cefclient_osr_widget_win.h" />
+    <ClInclude Include="cef_browser\client_app.h" />
+    <ClInclude Include="cef_browser\client_handler.h" />
+    <ClInclude Include="cef_browser\client_renderer.h" />
+    <ClInclude Include="cef_browser\client_switches.h" />
+    <ClInclude Include="cef_browser\dialog_test.h" />
+    <ClInclude Include="cef_browser\dragdrop_events.h" />
+    <ClInclude Include="cef_browser\osrenderer.h" />
+    <ClInclude Include="cef_browser\performance.h" />
+    <ClInclude Include="cef_browser\performance_setup.h" />
+    <ClInclude Include="cef_browser\resource_util.h" />
+    <ClInclude Include="cef_browser\scheme_test.h" />
+    <ClInclude Include="cef_browser\string_util.h" />
+    <ClInclude Include="cef_browser\window_test.h" />
+    <ClInclude Include="chat_common\comenum.h" />
+    <ClInclude Include="jpeg_file\Jpegfile.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="ui\face_ctrl.h" />
+    <ClInclude Include="ui\face_list.h" />
+    <ClInclude Include="ui\face_sel_dlg.h" />
+    <ClInclude Include="ui\gif_image.h" />
+    <ClInclude Include="ui\IImageOle.h" />
+    <ClInclude Include="ui\login_wnd.h" />
+    <ClInclude Include="ui\main_frame.h" />
+    <ClInclude Include="ui\menu_wnd.h" />
+    <ClInclude Include="ui\observer_impl_base.hpp" />
+    <ClInclude Include="ui\rich_edit_util.h" />
+    <ClInclude Include="ui\select_online_user_wnd.h" />
+    <ClInclude Include="ui\select_visitor_wnd.h" />
+    <ClInclude Include="ui\show_big_image_dlg.h" />
+    <ClInclude Include="ui\system_settings.h" />
+    <ClInclude Include="ui\ui_crack.h" />
+    <ClInclude Include="ui\ui_friend_list.h" />
+    <ClInclude Include="ui\ui_menu.h" />
+    <ClInclude Include="ui\ui_menu_list.h" />
+    <ClInclude Include="ui\ui_user_list.h" />
+    <ClInclude Include="ui\user_list.h" />
+    <ClInclude Include="ui\WndShadow.h" />
+    <ClInclude Include="ui\xml_document.h" />
+    <ClInclude Include="ui_common\common_utility.h" />
+    <ClInclude Include="ui_common\global_setting.h" />
+    <ClInclude Include="ui_common\global_setting_define.h" />
+    <ClInclude Include="ui_common\IImageOle.h" />
+    <ClInclude Include="ui_common\markup.h" />
+    <ClInclude Include="ui_common\ole_helper.h" />
+    <ClInclude Include="ui_common\path.h" />
+    <ClInclude Include="ui_common\small_menu.h" />
+    <ClInclude Include="ui_common\utils.h" />
+    <ClInclude Include="YunKa.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cef_browser\binding_test.cpp" />
+    <ClCompile Include="cef_browser\bytes_write_handler.cpp" />
+    <ClCompile Include="cef_browser\cefclient.cpp" />
+    <ClCompile Include="cef_browser\cefclient_osr_dragdrop_win.cpp" />
+    <ClCompile Include="cef_browser\cefclient_osr_widget_win.cpp" />
+    <ClCompile Include="cef_browser\client_app.cpp" />
+    <ClCompile Include="cef_browser\client_app_delegates.cpp" />
+    <ClCompile Include="cef_browser\client_handler.cpp" />
+    <ClCompile Include="cef_browser\client_handler_win.cpp" />
+    <ClCompile Include="cef_browser\client_renderer.cpp" />
+    <ClCompile Include="cef_browser\client_switches.cpp" />
+    <ClCompile Include="cef_browser\dialog_test.cpp" />
+    <ClCompile Include="cef_browser\osrenderer.cpp" />
+    <ClCompile Include="cef_browser\performance.cpp" />
+    <ClCompile Include="cef_browser\performance_func.cpp" />
+    <ClCompile Include="cef_browser\resource_util_win.cpp" />
+    <ClCompile Include="cef_browser\scheme_test.cpp" />
+    <ClCompile Include="cef_browser\string_util.cpp" />
+    <ClCompile Include="cef_browser\window_test.cpp" />
+    <ClCompile Include="cef_browser\window_test_win.cpp" />
+    <ClCompile Include="jpeg_file\Jpegfile.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ui\face_ctrl.cpp" />
+    <ClCompile Include="ui\face_list.cpp" />
+    <ClCompile Include="ui\face_sel_dlg.cpp" />
+    <ClCompile Include="ui\gif_image.cpp" />
+    <ClCompile Include="ui\login_wnd.cpp" />
+    <ClCompile Include="ui\main_frame.cpp" />
+    <ClCompile Include="ui\rich_edit_util.cpp" />
+    <ClCompile Include="ui\select_online_user_wnd.cpp" />
+    <ClCompile Include="ui\select_visitor_wnd.cpp" />
+    <ClCompile Include="ui\show_big_image_dlg.cpp" />
+    <ClCompile Include="ui\system_settings.cpp" />
+    <ClCompile Include="ui\ui_crack.cpp" />
+    <ClCompile Include="ui\ui_friend_list.cpp" />
+    <ClCompile Include="ui\ui_menu.cpp" />
+    <ClCompile Include="ui\ui_menu_list.cpp" />
+    <ClCompile Include="ui\ui_user_list.cpp" />
+    <ClCompile Include="ui\user_list.cpp" />
+    <ClCompile Include="ui\WndShadow.cpp" />
+    <ClCompile Include="ui\xml_document.cpp" />
+    <ClCompile Include="ui_common\common_utility.cpp" />
+    <ClCompile Include="ui_common\global_setting.cpp" />
+    <ClCompile Include="ui_common\markup.cpp" />
+    <ClCompile Include="ui_common\ole_helper.cpp" />
+    <ClCompile Include="ui_common\path.cpp" />
+    <ClCompile Include="ui_common\small_menu.cpp" />
+    <ClCompile Include="ui_common\utils.cpp" />
+    <ClCompile Include="YunKa.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="YunKa.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="ui_common\ImageOleCtrl.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

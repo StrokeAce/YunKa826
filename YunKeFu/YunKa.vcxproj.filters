@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="cef_browser">
+      <UniqueIdentifier>{2499800e-9351-433a-bf38-04e7545f2080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{0378ccb3-19e4-487b-9221-2ec56cb0a51a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui_common">
+      <UniqueIdentifier>{ca5fa430-1fa7-4ff0-afa7-d93197535430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jpeg_file">
+      <UniqueIdentifier>{80746f84-b125-44ea-af80-3ac4df45f3f5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="YunKa.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\observer_impl_base.hpp">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\login_wnd.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\main_frame.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_crack.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_menu.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_common\global_setting_define.h">
+      <Filter>ui_common</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_common\small_menu.h">
+      <Filter>ui_common</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_common\common_utility.h">
+      <Filter>ui_common</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_common\global_setting.h">
+      <Filter>ui_common</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_common\path.h">
+      <Filter>ui_common</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_common\utils.h">
+      <Filter>ui_common</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\face_ctrl.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\face_list.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\face_sel_dlg.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\gif_image.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\IImageOle.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\xml_document.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\binding_test.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\bytes_write_handler.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\cefclient.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\cefclient_osr_dragdrop_win.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\cefclient_osr_widget_win.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\client_app.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\client_handler.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\client_renderer.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\client_switches.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\dialog_test.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\dragdrop_events.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\osrenderer.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\performance.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\performance_setup.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\resource_util.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\scheme_test.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\string_util.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="cef_browser\window_test.h">
+      <Filter>cef_browser</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\user_list.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_common\IImageOle.h">
+      <Filter>ui_common</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_common\ole_helper.h">
+      <Filter>ui_common</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\rich_edit_util.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="chat_common\comenum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\menu_wnd.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="jpeg_file\Jpegfile.h">
+      <Filter>jpeg_file</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\select_visitor_wnd.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\select_online_user_wnd.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\show_big_image_dlg.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\system_settings.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_user_list.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\WndShadow.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_friend_list.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_menu_list.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_common\markup.h">
+      <Filter>ui_common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="YunKa.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\binding_test.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\bytes_write_handler.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\cefclient.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\cefclient_osr_dragdrop_win.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\cefclient_osr_widget_win.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\client_app.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\client_app_delegates.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\client_handler.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\client_handler_win.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\client_renderer.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\client_switches.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\dialog_test.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\osrenderer.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\performance.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\performance_func.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\resource_util_win.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\scheme_test.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\string_util.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\window_test.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="cef_browser\window_test_win.cpp">
+      <Filter>cef_browser</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\face_ctrl.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\face_sel_dlg.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\face_list.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\gif_image.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\login_wnd.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\main_frame.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_crack.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_menu.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\user_list.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\xml_document.cpp">
+      <Filter>ui_common</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_common\common_utility.cpp">
+      <Filter>ui_common</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_common\global_setting.cpp">
+      <Filter>ui_common</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_common\path.cpp">
+      <Filter>ui_common</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_common\small_menu.cpp">
+      <Filter>ui_common</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_common\utils.cpp">
+      <Filter>ui_common</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_common\ole_helper.cpp">
+      <Filter>ui_common</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\rich_edit_util.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="jpeg_file\Jpegfile.cpp">
+      <Filter>jpeg_file</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\select_visitor_wnd.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\select_online_user_wnd.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\show_big_image_dlg.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\system_settings.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_user_list.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\WndShadow.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_friend_list.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_menu_list.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_common\markup.cpp">
+      <Filter>ui_common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="YunKa.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="ui_common\ImageOleCtrl.lib">
+      <Filter>ui_common</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
