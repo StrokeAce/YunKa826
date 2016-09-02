@@ -263,6 +263,8 @@ public:    //主界面消息回调
 	virtual void RecvQuickReply(const char* quickReply);
 	virtual void PopTrayTips(const char* strPopTips, const char* strTitle = "");
 
+	virtual void ShowMainWnd();
+
 public:
 	//自己定义的操作函数
 

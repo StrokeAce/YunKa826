@@ -1808,7 +1808,10 @@ void CMainFrame::RecvQuickReply(const char* quickReply)
 void CMainFrame::PopTrayTips(const char* strPopTips, const char* strTitle)
 {}
 
+void CMainFrame::ShowMainWnd()
+{
 
+}
 
 
 void CMainFrame::ResultTransferUser(CWebUserObject* pWebUser, CUserObject* pUser, RESULT_STATUS status)

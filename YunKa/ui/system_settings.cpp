@@ -310,6 +310,7 @@ void CSystemSettings::OnPrepare(TNotifyUI& msg)
 		ANSIToUnicode(filePath.c_str(), fileName);
 		pEdit->SetText(fileName);
 	}
+
 }
 
 LPCTSTR CSystemSettings::GetWindowClassName() const
