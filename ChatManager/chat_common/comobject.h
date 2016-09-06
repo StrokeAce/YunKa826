@@ -110,6 +110,8 @@ public:
 	bool				m_bAutoRespUnnormalStatus;	// 非正常在线自动应答开关
 	string				m_sUnnormalStatusMsg;		// 回复语
 	string				m_sInviteWords;				// 邀请语
+	string				m_sDirectWords;				// 直接对话语
+	string				m_sInviteLeaveWords;		// 邀请留言语
 	list<string>		m_cInviteWordsList;			// 邀请语列表
 	int					m_nInviteType;				// 邀请类型
 	int					m_nKeywordsSort;			// 辅助应答分类栏序列

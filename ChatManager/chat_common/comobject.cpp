@@ -68,12 +68,14 @@ void CSysConfigFile::ResetValue()
 
 	m_bVisotorTimeoutClose = false;
 	m_nVisitorTimeoutCloseTime = 10;
-	m_sVisitorTimeoutCloseMsg = "已经很久没有收到您的讯息，请问您还在电脑旁吗？如果没有其它问题，系统将主动结束本次对话。<br>如果有问题，欢迎您再次找我咨询，祝您今天工作好心情，再见。";
+	m_sVisitorTimeoutCloseMsg = "请问您还在吗？如果没有其它问题，系统将主动结束本次对话。<br>如果有问题，欢迎您再次找我咨询，再见。";
 
 	m_bAutoRespUnnormalStatus = false;
 	m_sUnnormalStatusMsg = "您好，我有事暂时离开，您可以留下联系方式或留言，我会尽快给您回复。";
 
 	m_sInviteWords = "您好！我能为您做点什么?";
+	m_sDirectWords = "您好！我能为您做点什么?";
+	m_sInviteLeaveWords = "您好！我能为您做点什么?";
 
 	//保存自定义邀请语
 	m_cInviteWordsList.clear();
@@ -189,6 +191,8 @@ bool CSysConfigFile::ReadFile(ifstream& fout)
 	Read(fout, m_bAutoRespUnnormalStatus);
 	Read(fout, m_sUnnormalStatusMsg);
 	Read(fout, m_sInviteWords);
+	Read(fout, m_sDirectWords);
+	Read(fout, m_sInviteLeaveWords);
 
 	m_cInviteWordsList.clear();
 	Read(fout, count);
@@ -298,6 +302,8 @@ bool CSysConfigFile::WriteFile(ofstream& fin)
 	Write(fin, m_bAutoRespUnnormalStatus);
 	Write(fin, m_sUnnormalStatusMsg.c_str());
 	Write(fin, m_sInviteWords.c_str());
+	Write(fin, m_sDirectWords.c_str());
+	Write(fin, m_sInviteLeaveWords.c_str());
 
 	Write(fin, (byte)m_cInviteWordsList.size());
 	list<string>::iterator iter_invite = m_cInviteWordsList.begin();

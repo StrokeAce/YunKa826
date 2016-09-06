@@ -203,7 +203,6 @@ LRESULT CSystemSettings::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lP
 	else if (uMsg == WM_MOUSEMOVE)
 	{
 		OnMouseMove(uMsg, wParam, lParam);
-		int a = 10;
 	}
 		
 	return 0;
@@ -311,6 +310,100 @@ void CSystemSettings::OnPrepare(TNotifyUI& msg)
 		pEdit->SetText(fileName);
 	}
 
+	// 自动应答开关
+	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("auto_reply_switch")));
+	if (pCheck) pCheck->Selected(m_sysConfig->m_bAutoResp);
+
+	// 客服欢迎语
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("welcome_edit")));
+	if (pEdit)
+	{
+		ANSIToUnicode(m_sysConfig->m_sWellcomeMsg.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
+
+	// 客服未回应，自动应答
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("client_auto_edit")));
+	if (pEdit)
+	{
+		ANSIToUnicode(m_sysConfig->m_sUserTimeoutMsg.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
+
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("client_auto_time")));
+	if (pEdit)
+	{
+		wsprintf(fileName, _T("%d"), m_sysConfig->m_nUserTimeoutTime);
+		pEdit->SetText(fileName);
+	}
+	
+	// 访客未回应，自动应答
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("visitor_auto_edit")));
+	if (pEdit)
+	{
+		ANSIToUnicode(m_sysConfig->m_sVisitorTimeoutMsg.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
+
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("visitor_auto_time")));
+	if (pEdit)
+	{
+		wsprintf(fileName, _T("%d"), m_sysConfig->m_nVisitorTimeoutTime);
+		pEdit->SetText(fileName);
+	}
+
+	// 会话关闭开关
+	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("chat_auto_switch")));
+	if (pCheck) pCheck->Selected(m_sysConfig->m_bVisotorTimeoutClose);
+
+	// 会话自动关闭
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("chat_auto_edit")));
+	if (pEdit)
+	{
+		ANSIToUnicode(m_sysConfig->m_sVisitorTimeoutCloseMsg.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
+
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("chat_auto_time")));
+	if (pEdit)
+	{
+		wsprintf(fileName, _T("%d"), m_sysConfig->m_nVisitorTimeoutCloseTime);
+		pEdit->SetText(fileName);
+	}
+
+	// 非正常在线自动应答开关
+	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("un_online_auto_switch")));
+	if (pCheck) pCheck->Selected(m_sysConfig->m_bAutoRespUnnormalStatus);
+
+	// 非正常在线，子的那个回复
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("un_online_auto_edit")));
+	if (pEdit)
+	{
+		ANSIToUnicode(m_sysConfig->m_sUnnormalStatusMsg.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
+
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("quick_invite")));
+	if (pEdit)
+	{
+		ANSIToUnicode(m_sysConfig->m_sInviteWords.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
+
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("direct_chat")));
+	if (pEdit)
+	{
+		ANSIToUnicode(m_sysConfig->m_sDirectWords.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
+
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("invite_leave_msg")));
+	if (pEdit)
+	{
+		ANSIToUnicode(m_sysConfig->m_sInviteLeaveWords.c_str(), fileName);
+		pEdit->SetText(fileName);
+	}
+
 }
 
 LPCTSTR CSystemSettings::GetWindowClassName() const
@@ -380,6 +473,8 @@ LRESULT CSystemSettings::OnMouseMove(UINT uMsg, WPARAM wParam, LPARAM lParam)
 void CSystemSettings::SaveSystemSettings()
 {
 	COptionUI * pCheck;
+	CEditUI* pEdit;
+	char replyMsg[MAX_512_LEN];
 
 	m_sysConfig->m_cAlertInfoList[0]->type = ALERT_NEW_VISIT;
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_visit_1")));
@@ -420,6 +515,103 @@ void CSystemSettings::SaveSystemSettings()
 	if (pCheck) m_sysConfig->m_cAlertInfoList[4]->bShowwnd = pCheck->IsSelected();
 	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("new_other_3")));
 	if (pCheck) m_sysConfig->m_cAlertInfoList[4]->bSound = pCheck->IsSelected();
+
+	// 自动应答开关
+	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("auto_reply_switch")));
+	if (pCheck) m_sysConfig->m_bAutoResp = pCheck->IsSelected();
+
+	// 客服欢迎语
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("welcome_edit")));
+	if (pEdit)
+	{
+		UnicodeToANSI(pEdit->GetText().GetData(), replyMsg);
+		m_sysConfig->m_sWellcomeMsg = replyMsg;
+	}
+
+	// 客服未回应，自动应答
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("client_auto_edit")));
+	if (pEdit)
+	{
+		UnicodeToANSI(pEdit->GetText().GetData(), replyMsg);
+		m_sysConfig->m_sUserTimeoutMsg = replyMsg;
+	}
+
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("client_auto_time")));
+	if (pEdit)
+	{
+		int time = _wtoi(pEdit->GetText().GetData());
+		m_sysConfig->m_nUserTimeoutTime = time;
+	}
+
+	// 访客未回应，自动应答
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("visitor_auto_edit")));
+	if (pEdit)
+	{
+		UnicodeToANSI(pEdit->GetText().GetData(), replyMsg);
+		m_sysConfig->m_sVisitorTimeoutMsg = replyMsg;
+	}
+
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("visitor_auto_time")));
+	if (pEdit)
+	{
+		int time = _wtoi(pEdit->GetText().GetData());
+		m_sysConfig->m_nVisitorTimeoutTime = time;
+	}
+
+	// 会话关闭开关
+	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("chat_auto_switch")));
+	if (pCheck) m_sysConfig->m_bVisotorTimeoutClose = pCheck->IsSelected();
+
+	// 会话自动关闭
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("chat_auto_edit")));
+	if (pEdit)
+	{
+		UnicodeToANSI(pEdit->GetText().GetData(), replyMsg);
+		m_sysConfig->m_sVisitorTimeoutCloseMsg = replyMsg;
+	}
+
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("chat_auto_time")));
+	if (pEdit)
+	{
+		int time = _wtoi(pEdit->GetText().GetData());
+		m_sysConfig->m_nVisitorTimeoutCloseTime = time;
+	}
+
+	// 非正常在线自动应答开关
+	pCheck = static_cast<COptionUI*>(m_PaintManager.FindControl(_T("un_online_auto_switch")));
+	if (pCheck) m_sysConfig->m_bAutoRespUnnormalStatus = pCheck->IsSelected();
+
+	// 非正常在线，自动回复
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("un_online_auto_edit")));
+	if (pEdit)
+	{
+		UnicodeToANSI(pEdit->GetText().GetData(), replyMsg);
+		m_sysConfig->m_sUnnormalStatusMsg = replyMsg;
+	}
+
+	// 快速邀请
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("quick_invite")));
+	if (pEdit)
+	{
+		UnicodeToANSI(pEdit->GetText().GetData(), replyMsg);
+		m_sysConfig->m_sInviteWords = replyMsg;
+	}
+
+	// 直接对话
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("direct_chat")));
+	if (pEdit)
+	{
+		UnicodeToANSI(pEdit->GetText().GetData(), replyMsg);
+		m_sysConfig->m_sDirectWords = replyMsg;
+	}
+
+	// 邀请留言
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("invite_leave_msg")));
+	if (pEdit)
+	{
+		UnicodeToANSI(pEdit->GetText().GetData(), replyMsg);
+		m_sysConfig->m_sInviteLeaveWords = replyMsg;
+	}
 }
 
 void CSystemSettings::ResetAlertSettings()
