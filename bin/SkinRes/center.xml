@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <center>
-<HorizontalLayout name="HorizontalLayoutUI_CenterTop" height="2"  bkcolor="#FFD3E5F6">
-
-</HorizontalLayout>
+<HorizontalLayout name="HorizontalLayoutUI_CenterTop" height="2"  bkcolor="#FFD3E5F6" />
 
 <VerticalLayout height="420">
   <HorizontalLayout name="HorizontalLayoutUI_ShowMsg" height="420" bkcolor="#FFF8F8F8" inset="2,1,1,2">

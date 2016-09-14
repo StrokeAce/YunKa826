@@ -582,10 +582,9 @@ void CMainFrame::MoveAndRestoreMsgWnd(int type)
 	CButtonUI *button1 = static_cast<CButtonUI*>(m_PaintManager.FindControl(_T("option_button_6")));
 	CButtonUI *button2 = static_cast<CButtonUI*>(m_PaintManager.FindControl(_T("option_button_7")));
 
+	GetWindowRect(this->m_hWnd, &sysRect);
 	if (type == 0) //max
 	{
-		GetWindowRect(this->m_hWnd, &sysRect);
-
 		if (sysRect.right >= 1280)
 			changeType = 1;
 
@@ -686,10 +685,18 @@ void CMainFrame::MoveAndRestoreMsgWnd(int type)
 
 		//设置按钮背景高度
 		optionButtonControl->SetAttribute(L"height", L"52");
+		//m_mainCenterAndRightRect.bottom += 20;
 
+		//m_mainCenterAndRightRect.bottom = sysRect.bottom - 4;
 		//rc = ShowRightWebWnd->GetPos();
+
+		rect.left = m_mainCenterAndRightRect.left;
+		rect.right = m_mainCenterAndRightRect.right;
+		rect.top = m_mainCenterAndRightRect.top;
+		rect.bottom = m_mainCenterAndRightRect.bottom + 20;
+
 		m_pVisitorRelatedHandler.handler->MoveBrowser(m_rightRectWnd);
-		m_pWebURLHandler.handler->MoveBrowser(m_mainCenterAndRightRect);
+		m_pWebURLHandler.handler->MoveBrowser(rect);
 
 		//右侧 option 按钮移动
 		button0 = static_cast<CButtonUI*>(m_PaintManager.FindControl(_T("option_button_1")));
@@ -2088,6 +2095,9 @@ void CMainFrame::OnManagerButtonEvent(TNotifyUI& msg)
 			break;
 		}
 	}
+
+	doEvent = 0;
+
 
 	if (doEvent == -1)
 		return;
