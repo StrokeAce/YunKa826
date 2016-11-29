@@ -111,7 +111,7 @@ bool CChatManager::StartLogin(const char* loginName, const char* password, bool 
 			m_bKeepPwd = isKeepPwd;
 
 			// 开始登录时，启动一个判断登录超时的定时器
-			m_timers->SetTimer(15000, TIMER_LOGIN);
+			//m_timers->SetTimer(15000, TIMER_LOGIN);
 			return m_login->StartLogin(loginName, password, isAutoLogin, isKeepPwd);
 		}
 		m_lastError = "登录的帐号和密码都不能为空";
