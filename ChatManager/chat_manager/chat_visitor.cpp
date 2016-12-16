@@ -323,6 +323,8 @@ void CChatVisitor::SolveVisitorSCRIPTMSGTalkBegin(char *pInitBuff)
 		pWebUser->info.userstatus = USER_STATUS_ONLINE;
 		pWebUser->talkuid = uKefu;
 		pWebUser->onlineinfo.talkstatus = TALK_STATUS_TALK;
+
+		pWebUser->recordonlinetime = 0;
 		m_manager->m_handlerMsgs->RecvChatInfo(pWebUser, pkefu);
 	}
 	else

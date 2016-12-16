@@ -227,6 +227,8 @@ public:
 	char					chatid[MAX_CHATID_LEN + 1];	//工单id，唯一区别一次会话
 	unsigned short			gpid;
 
+	unsigned int            recordonlinetime;
+
 	//以下信息用于用户第一次上线是使用
 	unsigned long 			talkuid;					//对话的用户 第一次对话用户
 	unsigned long 			transferuid;				//要转接的用户

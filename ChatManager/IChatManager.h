@@ -292,6 +292,8 @@ public:
 
 	virtual CWebUserObject *GetWebUserObjectByUid(unsigned long uid) = 0;
 
+
+
 };
 
 class DLL_EXPORT CManagerFactory

@@ -28,6 +28,10 @@
 #define TIMER_REFRESH_WEBPAGE 82 // 刷新消息记录等页面
 #define TIMER_MAILCHECK		60	//邮件监测定时器 60 -- 70  
 
+
+#define     WM_ADD_ONLINE_TIME_ID                                  WM_USER+4003
+#define     DELAY_ADD_ONLINE_TIME_TIME                             1000
+
 //定时器间隔
 #define TIME_NORMALTIME			500
 //一次通讯最大的时间

@@ -270,6 +270,7 @@ public:
 	CWebUserObject *AddWebUserObject(char *sid, char *thirdid, char *name, char *scriptflag, char *url,
 		USER_STATUS status, unsigned char floatauth);
 
+
 	unsigned short GetPackSeq();	
 
 	// 定时发送心跳包保活

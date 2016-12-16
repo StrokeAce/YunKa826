@@ -1334,7 +1334,9 @@ int CChatManager::RecvFloatCreateChat(PACK_HEADER packhead, char *pRecvBuff, int
 	if (pWebUser == NULL)
 	{
 		pWebUser = AddWebUserObject(RecvInfo.clienttid, RecvInfo.thirdid, RecvInfo.webname, "", "", USER_STATUS_ONLINE, 0);
-		pWebUser->m_onlinetime = 0;
+
+		pWebUser->m_onlinetime = ::GetTimeLong();
+		//pWebUser->m_onlinetime = 0;
 		pWebUser->m_bIsShow = false;
 	}
 
@@ -1427,6 +1429,8 @@ int CChatManager::RecvFloatCreateChat(PACK_HEADER packhead, char *pRecvBuff, int
 
 	if (m_bLoginSuccess && m_bFrameInit)
 	{
+
+		pWebUser->recordonlinetime = 0;
 		m_handlerMsgs->RecvChatInfo(pWebUser, pUser);
 	}
 
@@ -1509,6 +1513,7 @@ int CChatManager::RecvFloatChatInfo(PACK_HEADER packhead, char *pRecvBuff, int l
 		SolveAlertInfo(ALERT_NEW_CHAT, msg);
 
 		SendStartRecvFloatMsg(packhead.random, RecvInfo.uAdminId, RecvInfo.chatid, pWebUser->m_sNewSeq);
+		pWebUser->recordonlinetime = 0;
 		m_handlerMsgs->RecvChatInfo(pWebUser);
 	}
 	else
@@ -1589,6 +1594,7 @@ int CChatManager::RecvFloatChatInfo(PACK_HEADER packhead, char *pRecvBuff, int l
 						SendStartRecvFloatMsg(packhead.random, RecvInfo.uAdminId, RecvInfo.chatid, pWebUser->m_sNewSeq);
 					}
 
+					pWebUser->recordonlinetime = 0;
 					m_handlerMsgs->RecvChatInfo(pWebUser, pUser);
 				}
 			}
@@ -1958,6 +1964,7 @@ int CChatManager::RecvFloatAcceptChat(PACK_HEADER packhead, char *pRecvBuff, int
 		SendStartRecvFloatMsg(packhead.random, RecvInfo.uAdminId, RecvInfo.chatid, pWebUser->m_sNewSeq);
 	}
 
+	pWebUser->recordonlinetime = 0;
 	m_handlerMsgs->RecvAcceptChat(pWebUser, pUser);
 
 	nError = 0;
@@ -2323,6 +2330,8 @@ int CChatManager::RecvFloatRelease(PACK_HEADER packhead, char *pRecvBuff, int le
 	}
 	AddMsgToList((IBaseObject*)pWebUser, MSG_FROM_SYS, MSG_RECV_ERROR, GetMsgId(), MSG_TYPE_NORMAL,
 		MSG_DATA_TYPE_TEXT,	msg, 0, NULL, NULL);
+
+	pWebUser->recordonlinetime = 0;
 	m_handlerMsgs->RecvReleaseChat(pWebUser);
 	nError = 0;
 RETURN:
@@ -2804,6 +2813,18 @@ void CChatManager::TimerProc(int timeId, LPVOID pThis)
 		}
 		chat_manager->m_timers->KillTimer(TIMER_LOGIN);
 	}
+
+	if (timeId == WM_ADD_ONLINE_TIME_ID)
+	{
+		MapWebUsers::iterator iter = chat_manager->m_mapWebUsers.begin();
+		for (iter; iter != chat_manager->m_mapWebUsers.end(); iter++)
+		{
+			iter->second->recordonlinetime += 1;
+
+		}
+
+
+	}
 }
 
 int CChatManager::SendTo_GetAllUserInfo()
@@ -3020,6 +3041,11 @@ CWebUserObject * CChatManager::GetWebUserObjectByUid(unsigned long uid)
 	}
 	return NULL;
 }
+
+
+
+
+
 
 int CChatManager::SendToGetWorkBill(unsigned long webuserid, const char *chatid, char *szMsg, unsigned int chatkefuid)
 {
@@ -3385,6 +3411,7 @@ void CChatManager::RecvComSendWorkBillMsg(unsigned long senduid, unsigned long r
 
 			if (m_bLoginSuccess && m_bFrameInit)
 			{
+				pWebUser->recordonlinetime = 0;
 				m_handlerMsgs->RecvChatInfo(pWebUser, &m_userInfo);
 
 				char alertMsg[MAX_64_LEN];
@@ -3800,8 +3827,10 @@ void CChatManager::LoginSuccess()
 	// 收到登录用户的信息包，登录成功
 	SetLoginProgress(100);
 	m_nOnLineStatus = USER_STATUS_ONLINE;
-	m_timers->SetTimer(1000, TIMER_NORMAL);
+	m_timers->SetTimer(1000, TIMER_NORMAL); 
 
+	m_timers->SetTimer(1000, WM_ADD_ONLINE_TIME_ID);
+	  
 	if (m_bKeepPwd)
 	{
 		m_sysConfig->AddLatestLoginInfo(m_userInfo.UserInfo.uid, m_userInfo.UserInfo.sid,
