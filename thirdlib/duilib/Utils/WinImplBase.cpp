@@ -273,6 +273,7 @@ void WindowImplBase::OnCreateShadow(HWND hwnd)
 }
 
 
+
 LRESULT WindowImplBase::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	LONG styleValue = ::GetWindowLong(*this, GWL_STYLE);
@@ -284,7 +285,7 @@ LRESULT WindowImplBase::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& 
 		rcClient.bottom - rcClient.top, SWP_FRAMECHANGED);
 
 
-	//lxh 2016-08-19 add shadow Window
+	//lxh  add shadow Window
 	OnCreateShadow(m_hWnd);
 
 	m_PaintManager.Init(m_hWnd);
