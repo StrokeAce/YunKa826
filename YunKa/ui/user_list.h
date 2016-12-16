@@ -11,6 +11,7 @@ inline double CalculateDelay(double state) {
 class UserListUI : public CListUI
 {
 public:
+
 	enum { SCROLL_TIMERID = 10 };
 
 	struct NodeData
@@ -288,6 +289,8 @@ public:
 	void UpdateNodeItem(LPCTSTR text, Node* node)
 	{
 		CListLabelElementUI* pListElement = node->data()._pListElement;
+
+		pListElement->SetText(text);
 		//pListElement->setit
 
 	}

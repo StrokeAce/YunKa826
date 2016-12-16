@@ -21,8 +21,17 @@
 
 /************************************************ 定时器定义  *****************************************************************************************************************************************************/
 //延时加载在线访客的定时器
-#define     WM_ADD_ONLINE_DATA_TIMER_ID                                  1
+#define     WM_ADD_ONLINE_DATA_TIMER_ID                                  WM_USER+4001
 #define     DELAY_ADD_ONLINE_DATA_TIME                                   2500
+
+
+#define     WM_UPDATE_USER_TIMER_ID                                 WM_USER+4002
+#define     UPDATE_USER_TIME_DATA                                   1000
+
+#define     WM_ADD_ONLINE_TIME_ID                                  WM_USER+4003
+#define     DELAY_ADD_ONLINE_TIME_TIME                             1000
+
+
 
 
 

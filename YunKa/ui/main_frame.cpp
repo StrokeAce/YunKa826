@@ -68,6 +68,8 @@ CMainFrame::CMainFrame(IChatManager* manager) :m_manager(manager)
 
 	memset(&m_centerChatInfo, 0, sizeof(m_centerChatInfo));
 	memset(&m_rightRectMax, 0, sizeof(m_rightRectMax));
+
+	m_startTimer = 0;
 }
 
 
@@ -527,6 +529,16 @@ void CMainFrame::OnTimer(TNotifyUI& msg)
 
 	if (msg.pSender == pUserList)
 	{
+		int a = 0;
+
+
+
+
+
+		//每秒都过来更新  访客列表里面的时间
+		//m_manager->UpdateWebUserOnlineTimeLong();
+		
+
 		//	m_PaintManager.KillTimer(pUserList);
 		//延时3秒中后再去 去在线用户列表
 		//	m_manager->SendTo_GetListChatInfo();
@@ -904,6 +916,11 @@ void CMainFrame::OnPrepare(TNotifyUI& msg)
 	AddMyselfToList(pUserList, m_manager->GetSelfInfo());
 	//再添加最后一个的位置
 	AddOnlineVisitor(pUserList, NULL, -1);
+
+
+
+
+	SetTimer(m_hWnd, WM_UPDATE_USER_TIMER_ID, UPDATE_USER_TIME_DATA, NULL);
 
 
 
@@ -4434,6 +4451,19 @@ void CMainFrame::RecvChatInfo(CWebUserObject* pWebUser, CUserObject* pUser)
 		text.Format(_T("{x 4}{i user_web.png 1 0}{x 4}%s"), name);
 	}
 
+
+	//这里先清空webuser 里面的时间计数器
+//	pWebUser->recordonlinetime = 0;
+	//然后启动定时间 记录时间
+
+	//if (m_startTimer == 0)
+	//{
+	//	m_PaintManager.SetTimer(pUserList, WM_ADD_ONLINE_TIME_ID, DELAY_ADD_ONLINE_TIME_TIME);
+	//	m_startTimer = 1;
+	//}
+
+
+
 	//先判断类型
 	//为接收的用户 在等待列表
 	if (pWebUser->onlineinfo.talkstatus == TALK_STATUS_REQUEST)
@@ -6057,13 +6087,89 @@ void CMainFrame::ShowRecordVoice(string strTips)
 
 LRESULT CMainFrame::OnWndTimer(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
+
+	CDuiString DuiStr;
 	if (wParam == TIMER_TIPS)
 	{
 		CPoint startPoint;
 		CPoint endPoint;
 		m_pOperTipsDlg->ShowWnd(SW_HIDE, startPoint, endPoint);
 		KillTimer(m_hWnd, TIMER_TIPS);
+	}	
+	if (wParam == WM_UPDATE_USER_TIMER_ID)
+	{
+		CDuiString buf;
+		CDuiString text;
+		map<unsigned long, UserListUI::Node*> ::iterator iterSid;
+		UserListUI::Node* tempNode = NULL;
+		CWebUserObject *pWebUser = NULL;
+		unsigned long id = 0;
+
+		//先寻找是不是在等待列表
+
+		for (int i = 0; i < 2; i++)
+		{
+			if (i == 0)
+			{
+				iterSid = m_waitVizitorMap.begin();
+				for (; iterSid != m_waitVizitorMap.end(); iterSid++)
+				{
+					tempNode = iterSid->second;
+					id = iterSid->first;
+					pWebUser = m_manager->GetWebUserObjectByUid(id);
+					if (pWebUser == NULL)
+						pWebUser = m_manager->GetWebUserObjectBySid((char*)tempNode->data()._sid.c_str());
+
+					if (pWebUser == NULL)
+						return -1;
+					text = tempNode->data()._html_text;
+
+					buf = GetShowTimeString(pWebUser->recordonlinetime);
+					int length = MAX_SHOW_LIST_LENGH - lstrlenW(text) - lstrlenW(buf);
+					for (int i = 0; i < length; i++)
+					{
+						DuiStr += L" ";
+					}
+					text += DuiStr;
+					text += buf;
+					pUserList->UpdateNodeItem(text, tempNode);
+				}
+			}
+			else
+			{
+				iterSid = m_allVisitorNodeMap.begin();
+				for (; iterSid != m_allVisitorNodeMap.end(); iterSid++)
+				{
+					tempNode = iterSid->second;
+					id = iterSid->first;
+					pWebUser = m_manager->GetWebUserObjectByUid(id);
+					if (pWebUser == NULL)
+						pWebUser = m_manager->GetWebUserObjectBySid((char*)tempNode->data()._sid.c_str());
+
+					if (pWebUser == NULL)
+						return -1;
+					text = tempNode->data()._html_text;
+
+				
+					buf = GetShowTimeString(pWebUser->recordonlinetime);
+
+				
+					int length = MAX_SHOW_LIST_LENGH - lstrlenW(text) - lstrlenW(buf);
+
+					for (int i = 0; i < length; i++)
+					{
+						DuiStr += L" ";
+					}
+	
+					text += DuiStr;
+					text += buf;
+					pUserList->UpdateNodeItem(text, tempNode);
+				}
+			}
+
+		}
 	}
+	
 
 	return 0;
 }
@@ -6120,4 +6226,32 @@ bool CMainFrame::ParseGroupUser(CMarkupXml &xml, CGroupObject *pGroupOb, char *s
 void CMainFrame::ShowMainWnd()
 {
 	::PostMessage(m_hMainWnd, WM_DOUBLE_CLICK_SHOW_WND_MSG, 0, 0);
+}
+
+void CMainFrame::OnCreateShadow(HWND hwnd)
+{
+
+	m_WndShadow.Create(m_hWnd);
+	m_WndShadow.SetSize(4);
+	m_WndShadow.SetDarkness(40);
+	m_WndShadow.SetPosition(0, 0);
+	
+}
+
+CDuiString CMainFrame::GetShowTimeString(unsigned long time)
+{
+	int min = 0;
+	int second = 0; 
+	WCHAR buf[128];
+
+	min = time / 60;
+	second = time % 60;
+
+	if (min == 0)
+		swprintf_s(buf, L"%d秒", time);
+	else
+		swprintf_s(buf, L"%d分%d秒",min,second);
+
+	return buf;
+	
 }

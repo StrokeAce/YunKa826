@@ -17,12 +17,15 @@
 #include "operation_tips.h"
 #include "ui_common/markup.h"
 #include "commctrl.h"
+#include "WndShadow.h"
+
 
 #pragma comment(lib,"comctl32.lib")
 
 #define MID_MANAGER_BUTTON_NUM    8
 #define MAX_PATH_LENGTH           512
 
+#define MAX_SHOW_LIST_LENGH                 56
 
 
 
@@ -219,6 +222,8 @@ public:    //主界面消息回调
 	virtual void PopTrayTips(const char* strPopTips, const char* strTitle = "");
 
 	virtual void ShowMainWnd();
+	virtual void OnCreateShadow(HWND hwnd);
+
 
 public:
 	//自己定义的操作函数
@@ -308,6 +313,7 @@ public:
 	void ShowOperationTips(CDuiString strTips); // 在聊天记录下方显示横条，做提示栏用
 	void ShowRecordVoice(string strTips); // 在聊天记录下方显示横条，做提示栏用
 
+	CDuiString CMainFrame::GetShowTimeString(unsigned long time);
 protected:
 
 	void Notify(TNotifyUI& msg);
@@ -422,7 +428,12 @@ private:
 	CSystemSettings *m_pSystSettingsDlg;
 	COperationTips* m_pOperTipsDlg;
 
-	bool   m_wndShow;
+	bool   m_wndShow;	 
+	int   m_startTimer;
+
+	CWndShadow m_WndShadow;
+
+
 
 };
 

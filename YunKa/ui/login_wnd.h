@@ -6,7 +6,7 @@
 #include "small_menu.h"
 #include "IChatManager.h"
 //#include "main_frame.h"
-
+#include "WndShadow.h"
 
 class CLoginWnd : public CWindowWnd, public INotifyUI, public IMessageFilterUI, public IHandlerLgoin
 {
@@ -45,6 +45,7 @@ public:
 public:
 	IChatManager* m_manager;
 
+	CWndShadow m_WndShadow;
 
 public:
 
