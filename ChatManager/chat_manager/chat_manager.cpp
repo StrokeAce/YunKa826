@@ -386,7 +386,14 @@ int CChatManager::RecvSrvConfLogon(PACK_HEADER packhead, char *pRecvBuff, int le
 	sprintf(lognmame, "_%s(%u)_emocss.log", RecvInfo.strid, RecvInfo.uin);
 	g_WriteLog.InitLog(GetCurrentPath() + "\\log", lognmame, C_LOG_ALL);
 	g_WriteLog.WriteLog(C_LOG_TRACE, "登录成功！");
-	return nError;
+
+	CLT_GET_CLT_INFO SendInfo(VERSION);
+
+	SendInfo.seq = GetPackSeq();
+	SendInfo.uin = RecvInfo.uin;
+	SendInfo.type = UPDATE_ALLINFO;
+
+	return SendPackTo(&SendInfo);
 }
 
 int CChatManager::RecvSrvRepUserinfo(PACK_HEADER packhead, char *pRecvBuff, int len)
@@ -2448,7 +2455,7 @@ int CChatManager::RecvFloatCloseChat(PACK_HEADER packhead, char *pRecvBuff, int 
 		{
 			// 访客不在线，直接进入已结束节点
 			g_WriteLog.WriteLog(C_LOG_TRACE, "RecvFloatCloseChat 坐席离线(%u)访客离线", packhead.uin);
-			m_vistor->SetVisitorOffline(pWebUser);
+			if (m_vistor) m_vistor->SetVisitorOffline(pWebUser);
 		}
 	}
 
@@ -2806,12 +2813,12 @@ void CChatManager::TimerProc(int timeId, LPVOID pThis)
 	}
 	else if (timeId == TIMER_LOGIN)
 	{
-		if (!chat_manager->m_bLoginSuccess)
-		{
-			chat_manager->m_lastError = "登录超时";
-			chat_manager->SetLoginProgress(-1);
-		}
-		chat_manager->m_timers->KillTimer(TIMER_LOGIN);
+		//if (!chat_manager->m_bLoginSuccess)
+		//{
+		//	chat_manager->m_lastError = "登录超时";
+		//	chat_manager->SetLoginProgress(-1);
+		//}
+		//chat_manager->m_timers->KillTimer(TIMER_LOGIN);
 	}
 
 	if (timeId == WM_ADD_ONLINE_TIME_ID)
@@ -5804,7 +5811,7 @@ int CChatManager::StartLoginVisitor()
 		m_vistor = new CChatVisitor();
 		m_vistor->m_manager = this;
 	}
-	if (m_vistor->ConnectToVisitorServer())
+	if (m_vistor && m_vistor->ConnectToVisitorServer())
 	{
 		return m_vistor->LoginToVisitorServer();
 	}
