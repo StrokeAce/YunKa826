@@ -183,6 +183,9 @@
     <ClInclude Include="ui_common\markup.h">
       <Filter>ui_common</Filter>
     </ClInclude>
+    <ClInclude Include="ui\WndShadow.h">
+      <Filter>ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -322,6 +325,9 @@
     </ClCompile>
     <ClCompile Include="ui_common\markup.cpp">
       <Filter>ui_common</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\WndShadow.cpp">
+      <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
